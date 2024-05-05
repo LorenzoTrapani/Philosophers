@@ -1,4 +1,4 @@
-NAME = Philo
+NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -pthreads -I./include
 SRCDIR = src
@@ -6,13 +6,15 @@ BINDIR = bin
 RM = rm -f
 
 SRC = main.c \
-	init.c 
+	init.c \
+		routine.c \
+
 
 all: $(BINDIR)/$(NAME)
 
-$(BINDIR)/$(NAME): $(SRCDIR)/$(SRC)
+$(BINDIR)/$(NAME): 
 	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) -o $@ $(SRCDIR)/$(SRC)
+	$(CC) $(CFLAGS) -o $@ $(addprefix $(SRCDIR)/,$(SRC))
 	@echo "${BOLD}Creating  -> ${RED}${NAME}${NO_COLOR}"
 	@${MAKE} camel
 

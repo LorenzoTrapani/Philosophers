@@ -6,12 +6,18 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/04 20:21:00 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:19:57 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+int	ft_isdigit(int c)
+{
+	if (('0' <= c && c <= '9'))
+		return (1);
+	return (0);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -59,7 +65,7 @@ bool	syntax_check(char *str)
 	return (true);
 }
 
-void philo_init(char **av)
+int data_init(char **av, t_philo *philo)
 {
 	int i;
 	int nbr;
@@ -72,6 +78,33 @@ void philo_init(char **av)
 		nbr = ft_atoi(av[i]);
 		if (i == 1 && nbr > 200)
 			return (1);
+		else if (i == 1)
+			philo->data->nbr_philo = nbr;
+		else if (i == 2)
+			philo->data->time_to_die = nbr;
+		else if (i == 3)
+			philo->data->time_to_eat = nbr;
+		else if (i == 4)
+			philo->data->time_to_sleep = nbr;
+		else if (i == 5)
+			philo->data->nbr_eat = nbr;
 		i++;
 	}
+	return (0);
+}
+
+void	philo_init(t_philo *philo)
+{
+	int i;
+
+	i = 0;
+	pthread_mutex_init(philo->fork, NULL);
+	while (i < philo->data->nbr_philo)
+	{
+		pthread_create(&philo[i].philo, NULL, (void*) routine, &philo[i]);
+		pthread_join(philo[i].philo, NULL);
+		philo[i].id = i;
+		i++;
+	}
+	pthread_mutex_destroy(philo->fork);
 }
