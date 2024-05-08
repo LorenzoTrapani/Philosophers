@@ -6,65 +6,11 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 16:40:14 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:34:55 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-int	ft_isdigit(int c)
-{
-	if (('0' <= c && c <= '9'))
-		return (1);
-	return (0);
-}
-
-int	ft_atoi(const char *str)
-{
-	int			i;
-	int			s;
-	long int	n;
-
-	i = 0;
-	s = 1;
-	n = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			s = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		n = (n * 10) + (str[i] - '0');
-		i++;
-	}
-	return (n * s);
-}
-
-bool	syntax_check(char *str)
-{
-	int	i;
-
-	i = 0;
-		
-	while (str[i])
-	{
-		if (str[i] == '-' || str[i] == '+')
-		{
-			if (i != 0 || str[i] == '-')
-				return (false);
-			else
-				i++;
-		}
-		if (!ft_isdigit(str[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 int data_init(char **av, t_data *data)
 {
@@ -111,6 +57,16 @@ int	philo_init(t_data *table)
 		table->philo[i] = (t_philo){0};
 		table->philo[i].table = table;
 		table->philo[i].id = i;
+		if (table->philo[i].id == 0)
+		{
+			table->philo[i].r_fork = table->nbr_philo - 1;
+			table->philo[i].l_fork = table->philo[i].id;
+		}
+		else
+		{
+			table->philo[i].r_fork = table->philo[i].id;
+			table->philo[i].l_fork = table->philo[i].id -1;
+		}
 		if(pthread_create(&table->philo[i].philo, NULL, (void *)routine, &table->philo[i]) != 0)
 		{
 			printf("pthread create failed\n");
@@ -126,7 +82,7 @@ int	philo_init(t_data *table)
 		//printf("philo %d\n", i);
 		if (pthread_join(table->philo[i].philo, NULL) != 0)
 		{
-			write(2, "Error join\n", 11);
+			printf("join error\n");
 			return (1);
 		}
 		i++;

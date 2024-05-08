@@ -1,20 +1,22 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -pthreads -I./include
+CFLAGS = -Wall -Wextra -Werror -g -pthread -I./include
 SRCDIR = src
-BINDIR = bin
 RM = rm -f
 
-SRC = main.c \
+SRC_S = main.c \
 	init.c \
-		routine.c \
+	routine.c \
+	mutex.c \
+	utils.c \
+	time.c \
 
+SRC = $(addprefix $(SRCDIR)/,$(SRC_S))
 
-all: $(BINDIR)/$(NAME)
+all: $(NAME)
 
-$(BINDIR)/$(NAME): 
-	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) -o $@ $(addprefix $(SRCDIR)/,$(SRC))
+$(NAME): $(SRC)
+	$(CC) $(CFLAGS) -o $@ $(SRC)
 	@echo "${BOLD}Creating  -> ${RED}${NAME}${NO_COLOR}"
 	@${MAKE} camel
 
@@ -22,7 +24,7 @@ clean:
 
 fclean: clean
 	@echo "${BOLD}Cleaning -> ${RED}${NAME}${NO_COLOR}"
-	@${RM} $(BINDIR)/$(NAME)
+	@${RM} $(NAME)
 	@${MAKE} camel_clean
 
 re: fclean all

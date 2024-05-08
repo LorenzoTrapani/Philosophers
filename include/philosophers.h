@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 16:45:09 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:36:34 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 //////////
 //STRUCT//
 //////////
+
 typedef struct s_philo	t_philo;
 typedef struct s_data
 {
@@ -41,6 +42,7 @@ struct s_philo
 	int			id;
 	int 		r_fork;
 	int			l_fork;
+	int			personal_meals;
 	pthread_t	philo;
 	t_data		*table;
 };
@@ -50,8 +52,6 @@ struct s_philo
 /////////////
 
 /*INIT*/
-int		ft_atoi(const char *str);
-bool	syntax_check(char *str);
 int		data_init(char **av, t_data *data);
 int		philo_init(t_data *data);
 /*ROUTINE*/
@@ -61,5 +61,9 @@ int		philo_eat(t_philo *philo);
 /*MUTEX*/
 int		mutex_init(t_data *table);
 void	mutex_destroy(t_data *table);
+/*UTILS*/
+int		ft_atoi(const char *str);
+bool	syntax_check(char *str);
+int		ft_isdigit(int c);
 
 #endif
