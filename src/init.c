@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 21:13:55 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:27:40 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	philo_init(t_data *table)
 	philo_create(table);
 	/* if (monitor(table) == 1)
 		return (1); */
-	philo_join(table);	
+	philo_join(table);
 	return (0);
 }
 
@@ -84,7 +84,7 @@ void	philo_set(t_data *table)
 	}
 }
 
-void	philo_create(t_data *table)
+int	philo_create(t_data *table)
 {
 	int i;
 
@@ -98,9 +98,10 @@ void	philo_create(t_data *table)
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	philo_join(t_data *table)
+int	philo_join(t_data *table)
 {
 	int i;
 
@@ -114,4 +115,5 @@ void	philo_join(t_data *table)
 		}
 		i++;
 	}
+	return (0);
 }

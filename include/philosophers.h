@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 21:15:14 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:38:17 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <sys/time.h>
+
+
+# define EAT "is eating 🍝\n"
+# define SLEEP "is sleeping 💤\n"
+# define THINK "is thinking 💭\n"
+# define FORK "has taken a fork 🍴\n"
+# define DEAD "is dead 💀\n"
+# define MEALS "has eaten enough meals 🍽️\n"
 
 //////////
 //STRUCT//
@@ -56,12 +64,14 @@ struct s_philo
 int				data_init(char **av, t_data *table);
 int				philo_init(t_data *table);
 void			philo_set(t_data *table);
-void			philo_create(t_data *table);
-void			philo_join(t_data *table);
+int				philo_create(t_data *table);
+int				philo_join(t_data *table);
 /*-------------------ROUTINE-------------------*/
 void			*routine(t_philo *philo);
-int				philo_print(t_philo *philo, int action);
-int				philo_eat(t_philo *philo);
+void			philo_print(t_philo *philo, int action);
+void			philo_eat(t_philo *philo);
+void			philo_sleep(t_philo *philo);
+void			philo_think(t_philo *philo);
 /*-------------------MUTEX-------------------*/
 int				mutex_init(t_data *table);
 void			mutex_destroy(t_data *table);
