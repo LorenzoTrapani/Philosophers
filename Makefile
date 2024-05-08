@@ -10,6 +10,7 @@ SRC_S = main.c \
 	mutex.c \
 	utils.c \
 	time.c \
+	monitor.c \
 
 SRC = $(addprefix $(SRCDIR)/,$(SRC_S))
 

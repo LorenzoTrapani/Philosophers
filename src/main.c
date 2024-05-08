@@ -6,14 +6,14 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:53:48 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 18:38:18 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 20:43:19 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 //DATA RACE = two or more threads want to access a shared resource at the same time.
-/* ac 1 = num of PHILOSOPHERS( same as forks)
+/* ac 1 = num of PHILOSOPHERS(same as forks)
 ac 2 = The time a philosopher will die if he doesn’t eat
 ac 3 = The time it takes a philosopher to eat
 ac 4 = The time it takes a philosopher to sleep

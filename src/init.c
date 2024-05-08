@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 18:34:55 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:13:55 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,20 @@ int	philo_init(t_data *table)
 		write(2, "Error malloc\n", 6);
 		return (1);
 	}
-	while (i < table->nbr_philo)
+	philo_set(table);
+	philo_create(table);
+	/* if (monitor(table) == 1)
+		return (1); */
+	philo_join(table);	
+	return (0);
+}
+
+void	philo_set(t_data *table)
+{
+	int i;
+
+	i = 0;
+	while(i < table->nbr_philo)
 	{
 		table->philo[i] = (t_philo){0};
 		table->philo[i].table = table;
@@ -67,6 +80,17 @@ int	philo_init(t_data *table)
 			table->philo[i].r_fork = table->philo[i].id;
 			table->philo[i].l_fork = table->philo[i].id -1;
 		}
+		i++;
+	}
+}
+
+void	philo_create(t_data *table)
+{
+	int i;
+
+	i = 0;
+	while (i < table->nbr_philo)
+	{
 		if(pthread_create(&table->philo[i].philo, NULL, (void *)routine, &table->philo[i]) != 0)
 		{
 			printf("pthread create failed\n");
@@ -74,12 +98,15 @@ int	philo_init(t_data *table)
 		}
 		i++;
 	}
-	
-	///monitoring
+}
+
+void	philo_join(t_data *table)
+{
+	int i;
+
 	i = 0;
 	while (i < table->nbr_philo)
 	{
-		//printf("philo %d\n", i);
 		if (pthread_join(table->philo[i].philo, NULL) != 0)
 		{
 			printf("join error\n");
@@ -87,5 +114,4 @@ int	philo_init(t_data *table)
 		}
 		i++;
 	}
-	return (0);
 }
