@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:53:48 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/05 17:23:59 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:43:56 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ ac 5 = OPZIONALE Number of times all the philosophers need to eat before termina
 
 int main(int ac, char **av)
 {
-	t_philo	*philo;
+	t_data	table;
 
-	philo = NULL;
-	if (ac != 5 && ac != 6)
+	table = (t_data){0};
+	ac = 0;
+	/* if (ac != 5 && ac != 6)
+		return (1); */
+	data_init(av, &table);
+	if (philo_init(&table) == 1)
 		return (1);
-	printf("sono qui/n");
-	data_init(av, philo);
-	philo_init(philo);
+	mutex_destroy(&table);
+	return (0);
 }

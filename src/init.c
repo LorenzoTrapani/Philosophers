@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/05 17:19:57 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:40:14 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ bool	syntax_check(char *str)
 	int	i;
 
 	i = 0;
+		
 	while (str[i])
 	{
 		if (str[i] == '-' || str[i] == '+')
@@ -65,7 +66,7 @@ bool	syntax_check(char *str)
 	return (true);
 }
 
-int data_init(char **av, t_philo *philo)
+int data_init(char **av, t_data *data)
 {
 	int i;
 	int nbr;
@@ -79,32 +80,56 @@ int data_init(char **av, t_philo *philo)
 		if (i == 1 && nbr > 200)
 			return (1);
 		else if (i == 1)
-			philo->data->nbr_philo = nbr;
+			data->nbr_philo = nbr;
 		else if (i == 2)
-			philo->data->time_to_die = nbr;
+			data->time_to_die = nbr;
 		else if (i == 3)
-			philo->data->time_to_eat = nbr;
+			data->time_to_eat = nbr;
 		else if (i == 4)
-			philo->data->time_to_sleep = nbr;
+			data->time_to_sleep = nbr;
 		else if (i == 5)
-			philo->data->nbr_eat = nbr;
+			data->nbr_meals = nbr;
 		i++;
 	}
 	return (0);
 }
 
-void	philo_init(t_philo *philo)
+int	philo_init(t_data *table)
 {
 	int i;
 
 	i = 0;
-	pthread_mutex_init(philo->fork, NULL);
-	while (i < philo->data->nbr_philo)
+	mutex_init(table);
+	table->philo = malloc (sizeof (t_philo)* table->nbr_philo);
+	if (!table->philo)
 	{
-		pthread_create(&philo[i].philo, NULL, (void*) routine, &philo[i]);
-		pthread_join(philo[i].philo, NULL);
-		philo[i].id = i;
+		write(2, "Error malloc\n", 6);
+		return (1);
+	}
+	while (i < table->nbr_philo)
+	{
+		table->philo[i] = (t_philo){0};
+		table->philo[i].table = table;
+		table->philo[i].id = i;
+		if(pthread_create(&table->philo[i].philo, NULL, (void *)routine, &table->philo[i]) != 0)
+		{
+			printf("pthread create failed\n");
+			return (1);
+		}
 		i++;
 	}
-	pthread_mutex_destroy(philo->fork);
+	
+	///monitoring
+	i = 0;
+	while (i < table->nbr_philo)
+	{
+		//printf("philo %d\n", i);
+		if (pthread_join(table->philo[i].philo, NULL) != 0)
+		{
+			write(2, "Error join\n", 11);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
