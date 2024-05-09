@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 21:27:40 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:26:11 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	philo_init(t_data *table)
 
 	i = 0;
 	mutex_init(table);
+	table->start_time = get_time();
 	table->philo = malloc (sizeof (t_philo)* table->nbr_philo);
 	if (!table->philo)
 	{
@@ -69,16 +70,16 @@ void	philo_set(t_data *table)
 	{
 		table->philo[i] = (t_philo){0};
 		table->philo[i].table = table;
-		table->philo[i].id = i;
-		if (table->philo[i].id == 0)
+		table->philo[i].id = i + 1;
+		if (table->philo[i].id - 1 == 0)
 		{
 			table->philo[i].r_fork = table->nbr_philo - 1;
-			table->philo[i].l_fork = table->philo[i].id;
+			table->philo[i].l_fork = table->philo[i].id - 1;
 		}
 		else
 		{
-			table->philo[i].r_fork = table->philo[i].id;
-			table->philo[i].l_fork = table->philo[i].id -1;
+			table->philo[i].r_fork = table->philo[i].id - 1;
+			table->philo[i].l_fork = table->philo[i].id - 2;
 		}
 		i++;
 	}

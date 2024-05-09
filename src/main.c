@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:53:48 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/08 20:43:19 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:00:17 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,11 @@ int main(int ac, char **av)
 	if (philo_init(&table) == 1)
 		return (1);
 	mutex_destroy(&table);
+	/* int i = 0;
+	while (i < table.nbr_philo)
+	{
+		printf("personal meals: %d\n", table.philo[i].personal_meals);
+		i++;
+	} */
 	return (0);
 }
