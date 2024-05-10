@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 14:34:33 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:13:36 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		nbr_meals;
+	bool	is_ended;
 	unsigned long	start_time;
 	struct s_philo *philo;
 	pthread_mutex_t *fork;
@@ -92,7 +93,7 @@ void			ft_usleep(unsigned long ms);
 unsigned long	get_time(void);
 /*-------------------MONITOR-------------------*/
 int				monitor(t_data *table);
-bool 			is_full(t_philo *philo);
+bool 			is_full(t_data *table);
 bool			is_dead(t_philo *philo);
 
 #endif

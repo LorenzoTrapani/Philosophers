@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:53:48 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 13:51:56 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:07:00 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,12 @@ int main(int ac, char **av)
 	t_data	table;
 
 	table = (t_data){0};
-	ac = 0;
-	/* if (ac != 5 && ac != 6)
-		return (1); */
+	if (ac != 5 && ac != 6)
+		return (1);
 	if (data_init(av, &table) == 1)
 		return (1);
 	if (philo_init(&table) == 1)
 		return (1);
 	mutex_destroy(&table);
-	/* int i = 0;
-	while (i < table.nbr_philo)
-	{
-		printf("personal meals: %d\n", table.philo[i].personal_meals);
-		i++;
-	} */
-	printf("time_to_die: %d\n", table.time_to_die);
 	return (0);
 }

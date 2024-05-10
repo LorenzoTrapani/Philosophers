@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:50:45 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 16:34:47 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:28:18 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ void *routine(t_philo *philo)
 {
 	if (philo->id == 1)
 		philo->table->start_time = get_time();
-	//printf("start_time: %lu\n", philo->table->start_time);
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
-	while (philo->personal_meals < philo->table->nbr_meals)
+	while (!philo->table->is_ended)
 	{
-		if (is_dead(philo))
+		if (philo->is_dead)
 			break ;
 		philo_eat(philo);
 		philo_sleep(philo);

@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 16:14:25 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:32:32 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	philo_init(t_data *table)
 	mutex_init(table);
 	table->philo = malloc (sizeof (t_philo)* table->nbr_philo);
 	if (!table->philo)
-	{
-		write(2, "Error malloc\n", 6);
 		return (1);
-	}
 	philo_set(table);
 	philo_create(table);
-	/* if (!monitor(table))
-		return (1); */
+	while (!table->is_ended)
+	{
+		if (monitor(table))
+			return (1);
+	}
 	philo_join(table);
 	return (0);
 }
@@ -70,7 +70,6 @@ void	philo_set(t_data *table)
 		table->philo[i] = (t_philo){0};
 		table->philo[i].table = table;
 		table->philo[i].id = i + 1;
-		table->philo[i].is_dead = false;
 		if (table->philo[i].id - 1 == 0)
 		{
 			table->philo[i].r_fork = table->nbr_philo - 1;

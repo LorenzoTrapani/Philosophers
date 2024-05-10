@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:32:59 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/09 13:25:48 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:56:33 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,3 @@ bool	syntax_check(char *str)
 	}
 	return (true);
 }
-
-/* void	ft_putstr_fd(char *s, int fd)
-{
-	write(fd, s, ft_strlen(s));
-} */
