@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:35:29 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/09 12:39:32 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:29:53 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ unsigned long	get_time(void)
 		return (-1);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
+

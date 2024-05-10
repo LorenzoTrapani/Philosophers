@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/09 16:26:31 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:34:33 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct s_data
 	pthread_mutex_t *fork;
 	pthread_mutex_t print;
 	pthread_mutex_t meals;
-	bool		is_dead;
+	pthread_mutex_t last_meal;
+	pthread_mutex_t death;
 }	t_data;
 
 struct s_philo
@@ -56,6 +57,8 @@ struct s_philo
 	int 		r_fork;
 	int			l_fork;
 	int			personal_meals;
+	int			last_meal;
+	bool		is_dead;
 	pthread_t	philo;
 	t_data		*table;
 };
@@ -89,6 +92,7 @@ void			ft_usleep(unsigned long ms);
 unsigned long	get_time(void);
 /*-------------------MONITOR-------------------*/
 int				monitor(t_data *table);
-bool 			is_full(t_data *table);
+bool 			is_full(t_philo *philo);
+bool			is_dead(t_philo *philo);
 
 #endif

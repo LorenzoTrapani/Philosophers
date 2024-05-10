@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:53:48 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/09 17:00:17 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:51:56 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int main(int ac, char **av)
 		printf("personal meals: %d\n", table.philo[i].personal_meals);
 		i++;
 	} */
+	printf("time_to_die: %d\n", table.time_to_die);
 	return (0);
 }
