@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:50:45 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 22:28:18 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:11:09 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void *routine(t_philo *philo)
 {
-	if (philo->id == 1)
-		philo->table->start_time = get_time();
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
 	while (!philo->table->is_ended)
 	{
-		if (philo->is_dead)
-			break ;
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
+	}
+	if (philo->table->is_ended)
+	{
+		pthread_mutex_unlock(&philo->r_fork);
+		pthread_mutex_unlock(&philo->l_fork);
 	}
 	return (NULL);
 }
@@ -40,11 +41,11 @@ void	philo_eat(t_philo *philo)
 	}
 	pthread_mutex_lock(&philo->table->fork[philo->l_fork]);
 	philo_print(philo, FORK);
-	philo_print(philo, EAT);
 	pthread_mutex_lock(&philo->table->meals);
 	philo->personal_meals++;
 	pthread_mutex_unlock(&philo->table->meals);
 	ft_usleep(philo->table->time_to_eat);
+	philo_print(philo, EAT);
 	pthread_mutex_lock(&philo->table->last_meal);
 	philo->last_meal = get_time() - philo->table->start_time;
 	pthread_mutex_unlock(&philo->table->last_meal);

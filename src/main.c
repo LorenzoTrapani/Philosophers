@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:53:48 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 18:07:00 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:09:53 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ int main(int ac, char **av)
 	t_data	table;
 
 	table = (t_data){0};
+	if (ac == 6)
+		table.count_meals = true;
 	if (ac != 5 && ac != 6)
 		return (1);
 	if (data_init(av, &table) == 1)
 		return (1);
 	if (philo_init(&table) == 1)
 		return (1);
+	mutex_unlock(&table);
 	mutex_destroy(&table);
 	return (0);
 }

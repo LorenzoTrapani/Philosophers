@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:21:49 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 22:35:44 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:08:06 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int monitor(t_data *table)
 	int i;
 
 	i = 0;
-	if (is_full(table))
+	if (table->count_meals && is_full(table))
 		return (1);
 	while (i < table->nbr_philo)
 	{
@@ -30,18 +30,13 @@ int monitor(t_data *table)
 
 bool is_dead(t_philo *philo)
 {
-	int death_gap;
-	int time;
-
-	time = get_time() - philo->table->start_time;
+	long int death_gap;
+	long int time;
+	
+	time = get_time() - mutex_ulong_value(philo->table->l, &philo->table->start_time);
 	death_gap = time - philo->last_meal;
 	if (death_gap >= philo->table->time_to_die)
 	{
-		
-		pthread_mutex_lock(&philo->table->death);
-		philo->is_dead = true;
-		philo->table->is_ended = true;
-		pthread_mutex_unlock(&philo->table->death);
 		philo_print(philo, DEAD);
 		return (true);
 	}
@@ -63,9 +58,9 @@ bool	is_full(t_data *table)
 				i++;
 				if (table->philo[i].id == table->nbr_philo)
 				{
-					pthread_mutex_lock(&table->death);
+					pthread_mutex_lock(&table->end);
 					table->is_ended = true;
-					pthread_mutex_unlock(&table->death);
+					pthread_mutex_unlock(&table->end);
 					return (true);
 				}
 			}

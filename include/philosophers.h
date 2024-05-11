@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 22:13:36 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:09:36 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ typedef struct s_data
 	int		time_to_sleep;
 	int		nbr_meals;
 	bool	is_ended;
+	bool	count_meals;
 	unsigned long	start_time;
 	struct s_philo *philo;
 	pthread_mutex_t *fork;
 	pthread_mutex_t print;
 	pthread_mutex_t meals;
 	pthread_mutex_t last_meal;
+	pthread_mutex_t l;
+	pthread_mutex_t end;
 	pthread_mutex_t death;
+	pthread_mutex_t i;
 }	t_data;
 
 struct s_philo
@@ -83,6 +87,9 @@ void			philo_think(t_philo *philo);
 /*-------------------MUTEX-------------------*/
 int				mutex_init(t_data *table);
 void			mutex_destroy(t_data *table);
+int				mutex_int_value(pthread_mutex_t i, int *value);
+unsigned long	mutex_ulong_value(pthread_mutex_t i, unsigned long *value);
+void			mutex_unlock(t_data *table);
 /*-------------------UTILS-------------------*/
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);

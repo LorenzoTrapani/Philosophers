@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 22:32:32 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:06:57 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	philo_create(t_data *table)
 	int i;
 
 	i = 0;
+	table->start_time = get_time();
 	while (i < table->nbr_philo)
 	{
 		if(pthread_create(&table->philo[i].philo, NULL, (void *)routine, &table->philo[i]) != 0)
