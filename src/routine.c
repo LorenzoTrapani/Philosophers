@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:50:45 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/11 20:11:09 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:52:35 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ void *routine(t_philo *philo)
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
-	}
-	if (philo->table->is_ended)
-	{
-		pthread_mutex_unlock(&philo->r_fork);
-		pthread_mutex_unlock(&philo->l_fork);
 	}
 	return (NULL);
 }
@@ -58,20 +53,23 @@ void philo_print(t_philo *philo, char *action)
 	unsigned long time;
 
 	time = get_time();
-	pthread_mutex_lock(&philo->table->print);
-	printf("%s ", CYAN);
-	printf("%lu ", time - philo->table->start_time);
-	printf("%s ", GREEN);
-	printf("%d ", philo->id);
-	printf("%s", RESET);
-	printf("%s", action);
-	pthread_mutex_unlock(&philo->table->print);
+	if (!philo->table->is_ended)
+	{
+		pthread_mutex_lock(&philo->table->print);
+		printf("%s", CYAN);
+		printf("%lu ", time - philo->table->start_time);
+		printf("%s", GREEN);
+		printf("%d ", philo->id);
+		printf("%s", RESET);
+		printf("%s", action);
+		pthread_mutex_unlock(&philo->table->print);
+	}
 }
 
 void philo_sleep(t_philo *philo)
 {
-	philo_print(philo, SLEEP);
 	ft_usleep(philo->table->time_to_sleep);
+	philo_print(philo, SLEEP);
 }
 
 void	philo_think(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/11 20:09:36 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:25:54 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # define CYAN "\033[1;36m"   
 # define GREEN "\033[1;32m"
 
-# define EAT "is eating 🍝\n"
-# define SLEEP "is sleeping 💤\n"
-# define THINK "is thinking 💭\n"
-# define FORK "has taken a fork 🍴\n"
-# define DEAD "is dead 💀\n"
+# define EAT "is eating\n"
+# define SLEEP "is sleeping\n"
+# define THINK "is thinking\n"
+# define FORK "has taken a fork\n"
+# define DEAD "died\n"
 
 //////////
 //STRUCT//
@@ -62,8 +62,8 @@ struct s_philo
 	int 		r_fork;
 	int			l_fork;
 	int			personal_meals;
-	int			last_meal;
-	bool		is_dead;
+	long int	last_meal;
+	int			is_dead;
 	pthread_t	philo;
 	t_data		*table;
 };

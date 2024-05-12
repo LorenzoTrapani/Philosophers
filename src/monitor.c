@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:21:49 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/11 20:08:06 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:52:21 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ bool is_dead(t_philo *philo)
 	death_gap = time - philo->last_meal;
 	if (death_gap >= philo->table->time_to_die)
 	{
-		philo_print(philo, DEAD);
 		return (true);
+		pthread_mutex_lock(&philo->table->death);
+		philo->is_dead = 1;
+		pthread_mutex_unlock(&philo->table->death);
+		philo_print(philo, DEAD);
+		pthread_mutex_lock(&philo->table->end);
+		philo->table->is_ended = true;
+		pthread_mutex_unlock(&philo->table->end);
 	}
 	return (false);
 }
