@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:50:45 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/12 19:52:35 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:29:04 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void *routine(t_philo *philo)
 	while (!philo->table->is_ended)
 	{
 		philo_eat(philo);
+		if (philo->table->nbr_philo == 1)
+			break ;
 		philo_sleep(philo);
 		philo_think(philo);
 	}

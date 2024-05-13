@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:21:49 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/12 19:52:21 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:26:04 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ bool is_dead(t_philo *philo)
 	long int death_gap;
 	long int time;
 	
-	time = get_time() - mutex_ulong_value(philo->table->l, &philo->table->start_time);
-	death_gap = time - philo->last_meal;
+	time = get_time() - mutex_ulong_value(&philo->table->time, &philo->table->start_time);
+	death_gap = time - mutex_ulong_value(&philo->table->time, &philo->last_meal);
 	if (death_gap >= philo->table->time_to_die)
 	{
-		return (true);
 		pthread_mutex_lock(&philo->table->death);
 		philo->is_dead = 1;
 		pthread_mutex_unlock(&philo->table->death);
@@ -45,6 +44,7 @@ bool is_dead(t_philo *philo)
 		pthread_mutex_lock(&philo->table->end);
 		philo->table->is_ended = true;
 		pthread_mutex_unlock(&philo->table->end);
+		return (true);
 	}
 	return (false);
 }
@@ -56,7 +56,7 @@ bool	is_full(t_data *table)
 	i = 0;
 	while (i < table->nbr_philo)
 	{
-		if (table->philo[i].personal_meals >= table->nbr_meals)
+		if (mutex_int_value(&table->meals, &table->philo[i].personal_meals) >= table->nbr_meals)
 		{
 			i = 0;
 			while (i < table->nbr_philo && (table->philo[i + 1].personal_meals >= table->nbr_meals))
