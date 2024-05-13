@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/13 16:25:07 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:49:03 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ void	philo_set(t_data *table)
 		{
 			table->philo[i].r_fork = table->nbr_philo - 1;
 			table->philo[i].l_fork = table->philo[i].id - 1;
+		}
+		if ((table->philo[i].id == table->nbr_philo - 1) && ((table->nbr_philo % 2) != 0))
+		{
+			table->philo[i].r_fork = table->nbr_philo - 2;
+			table->philo[i].l_fork = table->nbr_philo - 1;
 		}
 		else
 		{
