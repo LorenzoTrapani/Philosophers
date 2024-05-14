@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:42:32 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/13 18:21:32 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:17:05 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@ int mutex_init(t_data *table)
 	while (i < table->nbr_philo)
 	{
 		pthread_mutex_init(&table->fork[i], NULL);
-		pthread_mutex_init(&table->meals, NULL);
 		i++;
 	}
-	pthread_mutex_init(&table->last_meal, NULL);
 	pthread_mutex_init(&table->print, NULL);
-	pthread_mutex_init(&table->death, NULL);
-	pthread_mutex_init(&table->time, NULL);
-	pthread_mutex_init(&table->end, NULL);
+	pthread_mutex_init(&table->end, NULL); 
 	return (0);
 }
 
@@ -42,27 +38,13 @@ void mutex_destroy(t_data *table)
 	while (i < table->nbr_philo)
 	{
 		pthread_mutex_destroy(&table->fork[i]);
-		pthread_mutex_destroy(&table->meals);
+		pthread_mutex_destroy(&table->philo[i].status);
 		i++;
 	}
-	pthread_mutex_destroy(&table->last_meal);
 	pthread_mutex_destroy(&table->print);
-	pthread_mutex_destroy(&table->death);
-	pthread_mutex_destroy(&table->time);
 	pthread_mutex_destroy(&table->end);
+	free(table->philo);
 	free(table->fork);
-}
-
-void mutex_unlock(t_data *table)
-{
-	int i;
-
-	i = 0;
-	while (i < table->nbr_philo)
-	{
-		pthread_mutex_unlock(&table->fork[i]);
-		i++;
-	}
 }
 
 int mutex_int_value(pthread_mutex_t *i, int *value)
@@ -72,7 +54,6 @@ int mutex_int_value(pthread_mutex_t *i, int *value)
 	pthread_mutex_lock(i);
 	get = *value;
 	pthread_mutex_unlock(i);
-
 	return (get);
 }
 

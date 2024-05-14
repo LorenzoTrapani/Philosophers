@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:54:27 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/13 18:23:09 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:18:49 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ typedef struct s_data
 	struct s_philo *philo;
 	pthread_mutex_t *fork;
 	pthread_mutex_t print;
-	pthread_mutex_t meals;
-	pthread_mutex_t last_meal;
-	pthread_mutex_t time;
 	pthread_mutex_t end;
-	pthread_mutex_t death;
 }	t_data;
 
 struct s_philo
@@ -62,7 +58,7 @@ struct s_philo
 	int			l_fork;
 	int			personal_meals;
 	unsigned long	last_meal;
-	int			is_dead;
+	pthread_mutex_t	status;
 	pthread_t	philo;
 	t_data		*table;
 };

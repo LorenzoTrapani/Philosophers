@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/13 16:49:03 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:16:55 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,13 @@ int	philo_init(t_data *table)
 	int i;
 
 	i = 0;
-	mutex_init(table);
-	table->philo = malloc (sizeof (t_philo)* table->nbr_philo);
+	table->philo = malloc(sizeof(t_philo)* table->nbr_philo);
 	if (!table->philo)
 		return (1);
+	mutex_init(table);
 	philo_set(table);
 	philo_create(table);
-	while (!table->is_ended)
-		monitor(table);
+	monitor(table);
 	philo_join(table);
 	return (0);
 }
@@ -61,10 +60,11 @@ void	philo_set(t_data *table)
 {
 	int i;
 
-	i = 0;
-	while(i < table->nbr_philo)
+	i = -1;
+	while(++i < table->nbr_philo)
 	{
 		table->philo[i] = (t_philo){0};
+		pthread_mutex_init(&table->philo[i].status, NULL);
 		table->philo[i].table = table;
 		table->philo[i].id = i + 1;
 		if (table->philo[i].id - 1 == 0)
@@ -72,17 +72,16 @@ void	philo_set(t_data *table)
 			table->philo[i].r_fork = table->nbr_philo - 1;
 			table->philo[i].l_fork = table->philo[i].id - 1;
 		}
-		if ((table->philo[i].id == table->nbr_philo - 1) && ((table->nbr_philo % 2) != 0))
+		/* if ((table->philo[i].id == table->nbr_philo - 1) && ((table->nbr_philo % 2) != 0))
 		{
 			table->philo[i].r_fork = table->nbr_philo - 2;
 			table->philo[i].l_fork = table->nbr_philo - 1;
-		}
+		} */
 		else
 		{
 			table->philo[i].r_fork = table->philo[i].id - 1;
 			table->philo[i].l_fork = table->philo[i].id - 2;
 		}
-		i++;
 	}
 }
 
