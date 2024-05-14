@@ -6,15 +6,15 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:21:49 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/14 22:06:22 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:12:36 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int monitor(t_data *table)
+int	monitor(t_data *table)
 {
-	int i;
+	int	i;
 
 	while (mutex_int_value(&table->end, &table->is_ended) == 0)
 	{
@@ -31,11 +31,11 @@ int monitor(t_data *table)
 	return (0);
 }
 
-bool is_dead(t_philo *philo)
+bool	is_dead(t_philo *philo)
 {
-	long int death_gap;
-	long int time;
-	
+	long int	death_gap;
+	long int	time;
+
 	time = get_time() - philo->table->start_time;
 	death_gap = time - mutex_ulong_value(&philo->status, &philo->last_meal);
 	if (death_gap > philo->table->time_to_die)
@@ -51,14 +51,15 @@ bool is_dead(t_philo *philo)
 
 bool	is_full(t_data *table)
 {
-	int i;
-	int meals_counter;
+	int	i;
+	int	meals_counter;
 
 	i = 0;
 	meals_counter = 0;
 	while (i < table->nbr_philo)
 	{
-		if (mutex_int_value(&table->philo[i].status, &table->philo[i].personal_meals) >= table->nbr_meals)
+		if (mutex_int_value(&table->philo[i].status,
+				&table->philo[i].personal_meals) >= table->nbr_meals)
 		{
 			meals_counter++;
 			if (meals_counter == table->nbr_philo)

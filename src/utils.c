@@ -49,7 +49,6 @@ bool	syntax_check(char *str)
 	int	i;
 
 	i = 0;
-		
 	while (str[i])
 	{
 		if (str[i] == '-' || str[i] == '+')

@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-void *routine(t_philo *philo)
+void	*routine(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
@@ -21,7 +21,8 @@ void *routine(t_philo *philo)
 		philo_eat(philo);
 		if (philo->table->nbr_philo == 1)
 			break ;
-		if (philo->personal_meals >= philo->table->nbr_meals && philo->table->count_meals)
+		if (philo->personal_meals >= philo->table->nbr_meals
+			&& philo->table->count_meals)
 			break ;
 		philo_sleep(philo);
 		philo_think(philo);
@@ -50,13 +51,14 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->fork[philo->l_fork]);
 }
 
-void philo_print(t_philo *philo, char *action)
+void	philo_print(t_philo *philo, char *action)
 {
-	unsigned long time;
+	unsigned long	time;
 
 	time = get_time();
 	pthread_mutex_lock(&philo->table->print);
-	if ((mutex_int_value(&philo->table->end, &philo->table->is_ended) == 0) || action[0] == 'd')
+	if ((mutex_int_value(&philo->table->end, &philo->table->is_ended) == 0)
+		|| action[0] == 'd')
 	{
 		printf("%s", CYAN);
 		printf("%lu ", time - philo->table->start_time);
@@ -68,7 +70,7 @@ void philo_print(t_philo *philo, char *action)
 	pthread_mutex_unlock(&philo->table->print);
 }
 
-void philo_sleep(t_philo *philo)
+void	philo_sleep(t_philo *philo)
 {
 	philo_print(philo, SLEEP);
 	ft_usleep(philo->table->time_to_sleep);

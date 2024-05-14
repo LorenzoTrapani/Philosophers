@@ -6,19 +6,19 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/14 17:16:55 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:13:31 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int data_init(char **av, t_data *data)
+int	data_init(char **av, t_data *data)
 {
-	int i;
-	int nbr;
+	int	i;
+	int	nbr;
 
 	i = 1;
-	while(av[i])
+	while (av[i])
 	{
 		if (!(syntax_check(av[i])))
 			return (1);
@@ -42,10 +42,10 @@ int data_init(char **av, t_data *data)
 
 int	philo_init(t_data *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	table->philo = malloc(sizeof(t_philo)* table->nbr_philo);
+	table->philo = malloc(sizeof(t_philo) * table->nbr_philo);
 	if (!table->philo)
 		return (1);
 	mutex_init(table);
@@ -58,10 +58,10 @@ int	philo_init(t_data *table)
 
 void	philo_set(t_data *table)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(++i < table->nbr_philo)
+	while (++i < table->nbr_philo)
 	{
 		table->philo[i] = (t_philo){0};
 		pthread_mutex_init(&table->philo[i].status, NULL);
@@ -72,11 +72,6 @@ void	philo_set(t_data *table)
 			table->philo[i].r_fork = table->nbr_philo - 1;
 			table->philo[i].l_fork = table->philo[i].id - 1;
 		}
-		/* if ((table->philo[i].id == table->nbr_philo - 1) && ((table->nbr_philo % 2) != 0))
-		{
-			table->philo[i].r_fork = table->nbr_philo - 2;
-			table->philo[i].l_fork = table->nbr_philo - 1;
-		} */
 		else
 		{
 			table->philo[i].r_fork = table->philo[i].id - 1;
@@ -87,13 +82,14 @@ void	philo_set(t_data *table)
 
 int	philo_create(t_data *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	table->start_time = get_time();
 	while (i < table->nbr_philo)
 	{
-		if(pthread_create(&table->philo[i].philo, NULL, (void *)routine, &table->philo[i]) != 0)
+		if (pthread_create(&table->philo[i].philo, NULL, (void *)routine,
+				&table->philo[i]) != 0)
 		{
 			printf("pthread create failed\n");
 			return (1);
@@ -105,7 +101,7 @@ int	philo_create(t_data *table)
 
 int	philo_join(t_data *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->nbr_philo)
