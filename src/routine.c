@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:50:45 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/14 17:17:26 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:19:48 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void *routine(t_philo *philo)
 		philo_eat(philo);
 		if (philo->table->nbr_philo == 1)
 			break ;
+		if (philo->personal_meals >= philo->table->nbr_meals && philo->table->count_meals)
+			break ;
 		philo_sleep(philo);
 		philo_think(philo);
-		if (philo->personal_meals >= philo->table->nbr_meals && mutex_int_value(&philo->status, (int *)&philo->table->count_meals) != 0)
-			break ;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:21:49 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/14 19:23:10 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:38:08 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool is_dead(t_philo *philo)
 	
 	time = get_time() - philo->table->start_time;
 	death_gap = time - mutex_ulong_value(&philo->status, &philo->last_meal);
-	if (death_gap > philo->table->time_to_die)
+	if (death_gap > philo->table->time_to_die + 5)
 	{
 		pthread_mutex_lock(&philo->table->end);
 		philo->table->is_ended = true;
