@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:02:44 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/14 22:13:31 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:39:59 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	data_init(char **av, t_data *data)
 		if (!(syntax_check(av[i])))
 			return (1);
 		nbr = ft_atoi(av[i]);
-		if (i == 1 && nbr > 200)
+		if (i == 1 && (nbr > 200 || nbr == 0))
 			return (1);
 		else if (i == 1)
 			data->nbr_philo = nbr;

@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:32:59 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/10 17:56:33 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:07:06 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,18 @@ int	ft_isdigit(int c)
 int	ft_atoi(const char *str)
 {
 	int			i;
-	int			s;
 	long int	n;
 
 	i = 0;
-	s = 1;
 	n = 0;
 	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			s = -1;
-		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		n = (n * 10) + (str[i] - '0');
 		i++;
 	}
-	return (n * s);
+	return (n);
 }
 
 bool	syntax_check(char *str)
