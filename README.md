@@ -1,15 +1,25 @@
-The Philosophers project is an essential part of the 42 curriculum. It tasks students with creating a simulation of the dining philosophers problem using threads and mutexes. This project aims to improve understanding of concurrency, synchronization, and efficient coding practices in C.
+# Introduction
 
-OBJECTIVE:
-- Simulate Philosophers' Dining: Implement a simulation where philosophers alternately eat, think, and sleep, using shared resources (forks).
-- Thread Management: Create threads for each philosopher and ensure proper synchronization to avoid race conditions.
-- Mutex Usage: Use mutexes to manage access to shared resources (forks) and prevent data races.
-- Monitor Philosopher State: Use an external thread to monitor the state of philosophers and ensure they don't starve.
-- Error Handling: Ensure thorough error handling to prevent unexpected crashes (segmentation faults, bus errors, etc.).
-- Memory Management: Properly manage dynamic memory allocation to avoid memory leaks.
+The Philosophers project is part of the 42 curriculum and is based on the famous dining philosophers problem. This problem illustrates challenges in concurrent programming, where multiple processes must share resources without causing deadlocks or resource starvation.
 
-KEY FEATURES:
-- Philosopher Threads: Each philosopher is represented by a separate thread.
-- Fork Management: Use mutexes to manage access to forks and ensure proper synchronization.
-- State Monitoring: An external thread monitors the state of each philosopher to ensure they do not starve.
-- Logging State Changes: Log state changes (eating, thinking, sleeping) with timestamps to track the behavior of philosophers.
+# Objectives
+
+The main objective of this project is to solve synchronization issues in a multithreaded environment. You will simulate the behavior of philosophers who alternate between thinking, eating, and sleeping, while avoiding situations like deadlocks.
+
+# Problem Overview
+
+In the dining philosophers problem, several philosophers are seated around a circular table. Each philosopher can either be thinking or eating. The number of forks is the same of the philosophers, however each one of them needs two forks to eat.
+
+Key Challenges:
+
+  - Concurrency Management: Ensure proper synchronization between philosophers without causing race conditions.
+  - Avoiding Deadlock: Prevent the philosophers from being stuck in a situation where none can proceed.
+  - Resource Sharing: Control access to shared resources (forks) using mutexes.
+
+Project Requirements:
+
+  - The program must create a number of philosophers and simulate their behavior.
+  - Each philosopher should act independently in a loop of thinking, picking up forks, eating, and sleeping.
+  - Philosophers must not starve: they should always get a chance to eat.
+  - Implement proper handling of shared resources to avoid conflicts.
+  - The program should end cleanly, ensuring all resources are freed.
