@@ -1,4 +1,4 @@
-The philo project is an essential part of the 42 curriculum. It tasks students with creating a simulation of the dining philosophers problem using threads and mutexes. This project aims to improve understanding of concurrency, synchronization, and efficient coding practices in C.
+The Philosophers project is an essential part of the 42 curriculum. It tasks students with creating a simulation of the dining philosophers problem using threads and mutexes. This project aims to improve understanding of concurrency, synchronization, and efficient coding practices in C.
 
 OBJECTIVE:
 - Simulate Philosophers' Dining: Implement a simulation where philosophers alternately eat, think, and sleep, using shared resources (forks).
